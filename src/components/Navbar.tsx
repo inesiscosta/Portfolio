@@ -1,14 +1,16 @@
-import Link from 'next/link';
+import Link from "next/link";
+import DarkModeToggle from "@/components/ToggleTheme";
 
-const Navbar = () => (
-  <nav>
-    <ul>
-      <li><Link href="/">Home</Link></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </nav>
-);
-
-export default Navbar;
+export default function Navbar() {
+  return (
+    <nav>
+      <ul className="navbar">
+        <li><Link href="/">Home</Link></li>
+        <li><Link href="/projects">Projects</Link></li>
+        <li><Link href="/about">About</Link></li>
+        <li><Link href="/contact">Contact</Link></li>
+      </ul>
+      <DarkModeToggle/>
+    </nav>
+  );
+}

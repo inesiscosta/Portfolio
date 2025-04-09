@@ -1,16 +1,23 @@
+import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import "../styles/globals.css";
 
-const Layout = ({ children }: { children: React.ReactNode }) => (
+export const metadata = {
+  title: "Inês Costa",
+  description: "Developer Portfolio",
+};
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body>
-      <div>
+      <ThemeProvider>
         <Navbar />
-          <main>{children}</main>
+        <main>{children}</main>
         <Footer />
-      </div>
+      </ThemeProvider>
     </body>
   </html>
 );
 
-export default Layout;
+export default RootLayout;
