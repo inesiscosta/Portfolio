@@ -20,6 +20,18 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const initial = stored || (prefersDark ? "dark" : "light");
     setTheme(initial);
     document.body.className = initial;
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!stored) {
+        const newTheme = e.matches ? "dark" : "light";
+        setTheme(newTheme);
+        document.body.className = newTheme;
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   const toggleTheme = () => {
