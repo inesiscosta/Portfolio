@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  devIndicators: false,
+  env: {
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+  },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
