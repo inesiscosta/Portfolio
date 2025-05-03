@@ -23,7 +23,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e: MediaQueryListEvent) => {
-      if (!stored) {
+      if (!localStorage.getItem("theme")) {
         const newTheme = e.matches ? "dark" : "light";
         setTheme(newTheme);
         document.body.className = newTheme;
