@@ -4,6 +4,7 @@
   --secondary: #636366;
   --hover: rgba(0, 0, 0, 0.1);
   --accent: #007bff;
+  --card-color: white;
 }
 
 * {
@@ -32,6 +33,7 @@ body.dark {
   --foreground: #ededed;
   --secondary: #C7C7CC;
   --hover: rgba(255, 255, 255, 0.1);
+  --card-color: black;
   color-scheme: dark;
 }
 

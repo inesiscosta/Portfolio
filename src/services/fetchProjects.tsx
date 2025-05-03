@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { GitHubResponse, Project } from '@/types/GitHubProjects';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 if (!GITHUB_TOKEN) throw new Error('Missing GITHUB_TOKEN environment variable.');
@@ -26,24 +27,6 @@ const GITHUB_QUERY = `
   }
 `;
 
-interface GitHubResponse {
-  data: {
-    viewer: {
-      repositories: {
-        nodes: {
-          name: string;
-          description: string | null;
-          homepageUrl: string | null;
-          stargazers: { totalCount: number };
-          repositoryTopics: { nodes: { topic: { name: string } }[] };
-          primaryLanguage: { name: string } | null;
-          url: string;
-        }[];
-      };
-    };
-  };
-}
-
 export const fetchProjects = async () => {
   try {
     const cachedDate = sessionStorage.getItem('github-projects');
@@ -51,18 +34,18 @@ export const fetchProjects = async () => {
       return JSON.parse(cachedDate);
     }
     const { data } = await axiosInstance.post<GitHubResponse>('', { query: GITHUB_QUERY });
-    const projects =  data.data.viewer.repositories.nodes.map((repo) => ({
+    const projects: Project[] = data.data.viewer.repositories.nodes.map((repo) => ({
       name: repo.name,
       description: repo.description,
-      homepageUrl: repo.homepageUrl,
-      stars: repo.stargazers.totalCount,
-      topics: repo.repositoryTopics.nodes.map((node) => node.topic.name),
       language: repo.primaryLanguage?.name || null,
+      tags: repo.repositoryTopics.nodes.map((node) => node.topic.name),
+      stars: repo.stargazers.totalCount,
+      liveUrl: repo.homepageUrl || undefined,
       sourceUrl: repo.url,
     }));
     sessionStorage.setItem('github-projects', JSON.stringify(projects));
     return projects;
-  } catch (error) {
+    } catch (error) {
     const errorMessage = axios.isAxiosError(error)
       ? error.response?.data?.message || error.message
       : 'An unexpected error occurred';
