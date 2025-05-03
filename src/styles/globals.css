@@ -1,6 +1,8 @@
 :root {
   --background: #f2f2f7;
   --foreground: #2d2d2d;
+  --secondary: #636366;
+  --hover: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -10,7 +12,7 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -25,8 +27,10 @@ body {
 }
 
 body.dark {
-  --background: #0a0a0a;
+  --background: #1f1f1f;
   --foreground: #ededed;
+  --secondary: #C7C7CC;
+  --hover: rgba(255, 255, 255, 0.1);
   color-scheme: dark;
 }
 
@@ -45,91 +49,16 @@ a {
   text-decoration: none;
 }
 
-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: transparent;
-  width: 100%;
-  gap: 1.5rem;
-  padding: 0.8rem 0.8rem;
-  height: 60px;
-}
-
-ul.navbar {
-  display: flex;
-  align-items: center;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-}
-
-ul.navbar li {
-  display: inline;
-  position: relative;
-  text-decoration: none;
-  margin-left: 2rem;
-}
-
-ul.navbar li::after {
-  content: '';
-  height: 2px;
-  width: 100%;
-  background: var(--foreground);
-  position: absolute;
-  left: 0px;
-  bottom: -3px;
-  pointer-events: none;
-  transform: scaleX(0);
-  transition: transform 0.2s;
-}
-
-ul.navbar li:hover {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-ul.navbar li:hover::after {
-  transform: scaleX(1);
-}
-
-.theme-toggle {
-  color: var(--foreground);
-  background: transparent;
-  border: none;
-  font-size: 25px;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-toggle:hover {
-  font-weight: bold;
-  color: var(--foreground);
-  background: transparent;
-  border: none;
-}
-
-body.dark .theme-toggle {
-  font-size: 20px;
-  margin-left: 5px;
-}
-
-footer {
-  padding: 10px;
-  background-color: transparent;
-  color: var(--foreground);
+.not-found {
   text-align: center;
-  width: 100%;
-  position: relative;
-  padding: "10px";
+  padding: 2rem;
 }
 
-footer p {
-  margin: 0;
-  font-size: 14px;
+.not-found a {
+  color: blue;
+  text-decoration: none;
+}
+
+.hamburger-react {
+  z-index: 10000;
 }

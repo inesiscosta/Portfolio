@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import "../styles/globals.css";
+import "@/styles/globals.css";
 
 export const metadata = {
   title: "Inês Costa",
@@ -12,9 +12,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body>
       <ThemeProvider>
-        <Navbar />
+        <Navbar/>
         <main>{children}</main>
-        <Footer />
+        <Footer/>
       </ThemeProvider>
     </body>
   </html>

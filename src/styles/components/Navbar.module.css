@@ -1,0 +1,177 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: transparent;
+  gap: 1.5rem;
+  padding: 0.8rem 0.8rem;
+  height: 60px;
+  position: sticky;
+  z-index: 10000;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.sticky {
+  background-color: rgba(var(--background), 0.5);
+  backdrop-filter: blur(10px);
+}
+
+ul.nav-headers {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+ul.nav-headers li {
+  display: inline;
+  position: relative;
+  text-decoration: none;
+  margin-left: 2rem;
+}
+
+ul.nav-headers li a {
+  text-decoration: none;
+  color: var(--foreground);
+  transition: font-weight 0.2s ease;
+}
+
+ul.nav-headers li a.active {
+  font-weight: bold;
+}
+
+ul.nav-headers li::after {
+  content: '';
+  height: 2px;
+  width: 100%;
+  background: var(--foreground);
+  position: absolute;
+  left: 0px;
+  bottom: -3px;
+  pointer-events: none;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+ul.nav-headers li:hover {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+ul.nav-headers li:hover::after {
+  transform: scaleX(1);
+}
+
+.hamburger-menu-container {
+  background: var(--background);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 1;
+}
+
+.hamburger-menu-container.active {
+  clip-path: inset(0 0 0 0);
+}
+
+.hamburger-menu-container.closing {
+  clip-path: inset(100% 0 0 0);
+}
+
+.hamburger-menu-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.3s;
+}
+
+.hamburger-menu-container.active ul {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hamburger-menu-container.closing ul {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.hamburger-menu-container ul li {
+  margin: 1.5rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hamburger-menu-container.active ul li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hamburger-menu-container.closing ul li {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.hamburger-menu-container ul li:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.hamburger-menu-container ul li:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.hamburger-menu-container ul li:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.hamburger-menu-container ul li:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.hamburger-menu-container ul li a {
+  text-decoration: none;
+  color: var(--foreground);
+  font-size: 2rem;
+  font-weight: 400;
+  transition: color 0.3s ease-in-out;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hamburger-menu-container.active ul li a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hamburger-menu-container.closing ul li a {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.hamburger-menu-container ul li a:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .navbar{
+    gap: 0rem;
+  }
+}
