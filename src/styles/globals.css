@@ -5,6 +5,7 @@
   --hover: rgba(0, 0, 0, 0.1);
   --accent: #007bff;
   --card-color: white;
+  --tag-color: rgba(219, 219, 219, 0.4);
 }
 
 * {
@@ -33,7 +34,8 @@ body.dark {
   --foreground: #ededed;
   --secondary: #C7C7CC;
   --hover: rgba(255, 255, 255, 0.1);
-  --card-color: black;
+  --card-color: #2D2C2C;
+  --tag-color: rgba(82, 82, 82, 0.4);
   color-scheme: dark;
 }
 

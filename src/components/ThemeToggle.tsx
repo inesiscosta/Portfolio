@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "@/utils/ThemeContext";
 import LightModeIcon from "@/assets/light-mode.svg";
 import DarkModeIcon from "@/assets/dark-mode.svg";
 import styles from "@/styles/components/ThemeToggle.module.css";

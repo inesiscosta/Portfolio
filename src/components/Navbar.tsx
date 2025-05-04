@@ -12,7 +12,7 @@ const Navbar = () => {
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
     { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/cv", label: "CV" },
   ];
   
   const pathname = usePathname();
