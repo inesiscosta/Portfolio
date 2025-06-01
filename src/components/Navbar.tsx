@@ -95,7 +95,7 @@ const renderNavItems = () =>
       ) : (
         // Desktop navbar
         <>
-          <ul className={styles.desktop}>{renderNavItems()}</ul>
+          <ul className={styles.navItems}>{renderNavItems()}</ul>
           <ThemeToggle/>
         </>
       )}
