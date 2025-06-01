@@ -13,7 +13,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
     { href: "/about", label: "About" },
-    { href: "/cv.pdf", label: "CV" },
+    { href: "/ines-costa-cv.pdf", label: "CV" },
   ];
 
 const renderNavItems = () =>
@@ -23,7 +23,7 @@ const renderNavItems = () =>
         <a
           href={href}
           className={styles.navLink}
-          download="Inês-Costa-CV.pdf"
+          download
           onClick={() => isMobile && setIsMenuOpen(false)}
         >
           {label}
