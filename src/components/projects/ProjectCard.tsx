@@ -7,11 +7,11 @@ import languageIcons from '@/utils/languageIcons';
 import { Project } from '@/types/GitHubProjects';
 import styles from '@/styles/components/projects/ProjectCard.module.css';
 
-const ProjectCard: React.FC<Project> = ({ name, description, language, tags,
-  stars, sourceUrl, liveUrl }) => {
+export default function ProjectCard({ name, description, language, tags, stars, sourceUrl, liveUrl }: Project) {
   const languageIconUrl = language ? languageIcons[language.toLowerCase()] : undefined;
   return (
     <div className={styles.card}>
+      
       <div className={styles.header}>
         <h3 className={styles.title}>{name}</h3>
         <div className={styles.stars}>
@@ -19,25 +19,25 @@ const ProjectCard: React.FC<Project> = ({ name, description, language, tags,
           <span>{stars}</span>
         </div>
       </div>
+      
       <p className={styles.description}>{description || 'No description available.'}</p>
       <div className={styles.info}>
         <div className={styles.language}>
           <div className={styles.languageIcon}>
             <Image
-            src={languageIconUrl || GitHub} 
-            alt={language ? `Written in ${language}` : ''} 
+              src={languageIconUrl || GitHub} 
+              alt={language ? `Written in ${language}` : ''} 
             />
           </div>
           <span>{language || ''}</span>
         </div>
         <div className={styles.tags}>
-            {tags?.map((tag, index) => (
-            <span key={index} className={styles.tag}>
-              {tag}
-            </span>
-            ))}
+          {tags?.map((tag, index) => (
+            <span key={index} className={styles.tag}> {tag} </span>
+          ))}
         </div>
       </div>
+      
       <div className={styles.cta}>
         <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className={`${styles.ctaButton} ${styles.github}`}>
           <FaGithub className={styles.ctaIcon}/> Source
@@ -48,8 +48,7 @@ const ProjectCard: React.FC<Project> = ({ name, description, language, tags,
           </a>
         )}
       </div>
+
     </div>
   );
-};
-
-export default ProjectCard;
+}
