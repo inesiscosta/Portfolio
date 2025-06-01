@@ -1,8 +1,8 @@
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { HiPaperAirplane } from "react-icons/hi";
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import styles from '@/styles/components/Footer.module.css';
 
-const Footer = () => {
+export default function Footer() {
   const socialLinks = [
     { href: "mailto:me@inesiscosta.com",label: "Mail", icon: <HiPaperAirplane/> },
     { href: "https://linkedin.com/in/inesiscosta", label: "LinkedIn", icon: <FaLinkedin/> },
@@ -21,6 +21,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
