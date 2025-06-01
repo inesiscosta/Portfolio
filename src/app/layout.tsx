@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { ThemeProvider } from "@/utils/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,14 +9,17 @@ export const metadata = {
   description: "Developer Portfolio",
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const theme = cookieStore.get("theme")?.value || "";
+
   return (
-    <html lang="en">
+    <html lang="en" className={theme === "dark" ? "dark" : theme === "light" ? "light" : ""}>
       <body>
         <ThemeProvider>
-          <Navbar/>
+          <Navbar />
           <main>{children}</main>
-          <Footer/>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
