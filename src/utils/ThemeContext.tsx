@@ -1,42 +1,55 @@
 "use client";
-
 import { createContext, useContext, useEffect, useState } from "react";
+import { Theme, ThemeContextInterface } from "@/types/ThemeContext";
 
-type Theme = "light" | "dark";
+const ThemeContext = createContext<ThemeContextInterface>({
+  theme: undefined,
+  toggleTheme: () => {},
+});
 
-interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+export const ThemeProvider = ({ children, initialTheme }: { children: React.ReactNode, initialTheme: Theme }) => {
+  const [theme, setTheme] = useState<Theme>(initialTheme);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (!stored) {
-      document.cookie = `theme=${prefersDark ? "dark" : "light"}; path=/; max-age=31536000`;
+    if (!initialTheme) {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      setTheme(systemTheme);
+      document.documentElement.className = systemTheme;
+      document.cookie = `theme=${systemTheme}; path=/; max-age=31536000`;
     }
-    const initial = stored || (prefersDark ? "dark" : "light");
-    setTheme(initial);
-    document.documentElement.className = initial;
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e: MediaQueryListEvent) => {
       if (!localStorage.getItem("theme")) {
         const newTheme = e.matches ? "dark" : "light";
         setTheme(newTheme);
         document.documentElement.className = newTheme;
+        document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
       }
     };
 
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [initialTheme]);
+
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "theme" && (e.newValue === "light" || e.newValue === "dark")) {
+        setTheme(e.newValue as Theme);
+        document.documentElement.className = e.newValue;
+        document.cookie = `theme=${e.newValue}; path=/; max-age=31536000`;
+      } else if (e.key === "theme" && e.newValue === null) {
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(systemTheme);
+        document.documentElement.className = systemTheme;
+        document.cookie = `theme=${systemTheme}; path=/; max-age=31536000`;
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
+  // Note: Safari ignores the theme-color meta tag in dark mode if it is not within a certain range of colors (namely too light of colors will be ignored).
   useEffect(() => {
     const color = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
     let meta = document.querySelector('meta[name="theme-color"]');
@@ -49,11 +62,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   }, [theme]);
 
   const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    localStorage.setItem("theme", next);
-    document.documentElement.className = next;
-    document.cookie = `theme=${next}; path=/; max-age=31536000`;
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.className = newTheme;
+    document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
   };
 
   return (
@@ -63,8 +76,4 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) throw new Error("useTheme must be used within ThemeProvider");
-  return context;
-};
+export const useTheme = () => useContext(ThemeContext);

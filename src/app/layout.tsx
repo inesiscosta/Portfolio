@@ -10,16 +10,16 @@ export const metadata = {
 };
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const theme = cookieStore.get("theme")?.value || "";
+  const themeCookie = (await cookies()).get("theme")?.value;
+  const theme = themeCookie === "light" || themeCookie === "dark" ? themeCookie : undefined;
 
   return (
-    <html lang="en" className={theme === "dark" ? "dark" : theme === "light" ? "light" : ""}>
+    <html lang="en" className={theme}>
       <body>
-        <ThemeProvider>
-          <Navbar />
+        <ThemeProvider initialTheme={theme}>
+          <Navbar/>
           <main>{children}</main>
-          <Footer />
+          <Footer/>
         </ThemeProvider>
       </body>
     </html>
