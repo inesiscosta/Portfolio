@@ -13,7 +13,7 @@ yarn install && yarn dev
 
 ## 🌐 Live Demo
 
-Check out the live portfolio: [www.inesiscosta.com](www.inesiscosta.com)
+Check out the live portfolio: [www.inesiscosta.com](https://www.inesiscosta.com)
 
 ## 📬 Contact
 
