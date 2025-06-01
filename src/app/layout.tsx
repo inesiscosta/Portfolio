@@ -8,16 +8,16 @@ export const metadata = {
   description: "Developer Portfolio",
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en">
-    <body>
-      <ThemeProvider>
-        <Navbar/>
-        <main>{children}</main>
-        <Footer/>
-      </ThemeProvider>
-    </body>
-  </html>
-);
-
-export default RootLayout;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <ThemeProvider>
+          <Navbar/>
+          <main>{children}</main>
+          <Footer/>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
