@@ -1,5 +1,4 @@
-import { cookies } from "next/headers";
-import { ThemeProvider } from "@/utils/ThemeContext";
+import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "@/styles/globals.css";
@@ -9,14 +8,11 @@ export const metadata = {
   description: "Developer Portfolio",
 };
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
-  const themeCookie = (await cookies()).get("theme")?.value;
-  const theme = themeCookie === "light" || themeCookie === "dark" ? themeCookie : undefined;
-
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={theme}>
+    <html lang="en-gb" suppressHydrationWarning>
       <body>
-        <ThemeProvider initialTheme={theme}>
+        <ThemeProvider>
           <Navbar/>
           <main>{children}</main>
           <Footer/>
