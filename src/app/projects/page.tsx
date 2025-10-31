@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { GitHubResponse, Project, RepoNode } from "@/types/GitHubProjects";
 import ProjectCard from "@/components/projects/ProjectCard";
 import styles from "@/styles/pages/ProjectsPage.module.css";
@@ -26,7 +28,7 @@ async function getProjects(): Promise<Project[]> {
 
   const res = await fetch("https://api.github.com/graphql", {
     method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", "User-Agent": "my-portfolio" },
     body: JSON.stringify({ query: GITHUB_QUERY }),
     next: { revalidate: 60 },
   });
