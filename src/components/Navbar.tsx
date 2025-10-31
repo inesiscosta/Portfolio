@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Squeeze as HamburgerMenu } from "hamburger-react";
@@ -9,12 +9,21 @@ import styles from "@/styles/components/Navbar.module.css";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
-    { href: "/about", label: "About" },
     { href: "/ines-costa-cv.pdf", label: "CV" },
   ];
+
+const handleNavigation = (href: string) => {
+  router.push(href);
+  if (isMobile) {
+    setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 200);
+  }
+};
 
 const renderNavItems = () =>
   navItems.map(({ href, label }) => (
@@ -32,7 +41,7 @@ const renderNavItems = () =>
         <Link
           href={href}
           className={`${styles.navLink} ${!isMobile && pathname === href ? styles.current : ""}`}
-          onClick={() => isMobile && setIsMenuOpen(false)}
+          onClick={() => { handleNavigation(href); }}
         >
           {label}
         </Link>

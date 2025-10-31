@@ -25,3 +25,21 @@ export interface Project {
   liveUrl?: string;
   sourceUrl: string;
 }
+
+interface RepoTopicNode {
+  topic: { name: string };
+}
+
+interface RepoTopics {
+  nodes: RepoTopicNode[];
+}
+
+export interface RepoNode {
+  name: string;
+  description: string | null;
+  homepageUrl: string | null;
+  stargazers: { totalCount: number };
+  repositoryTopics: RepoTopics;
+  primaryLanguage: { name: string } | null;
+  url: string;
+}
